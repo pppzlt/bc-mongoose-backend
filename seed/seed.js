@@ -32,6 +32,7 @@ connection.once("open", async () => {
         {
             username: "Bob",
             email: "e@a.com",
+            friends: [{ _id: "63f939824268a185ff4ac126" }],
         },
     ];
 
@@ -39,6 +40,16 @@ connection.once("open", async () => {
         {
             thoughtText: "123",
             username: "Peter",
+            reactions: [
+                {
+                    reactionBody: "this is cool!",
+                    username: "Bob",
+                },
+                {
+                    reactionBody: "this is bad!",
+                    username: "John",
+                },
+            ],
         },
         {
             thoughtText: "456",
