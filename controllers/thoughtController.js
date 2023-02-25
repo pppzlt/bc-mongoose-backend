@@ -21,23 +21,45 @@ module.exports = {
     },
     postThought(req, res) {
         Thought.create(req.body)
-            .then((thought) => User.findOneAndUpdate(
-                { _id: req.body.userId },
-                { $addToSet: { thoughts: thought._id } },
-                {runValidators: true, new: true}
-            ))
-            .then(() => res.json({msg: 'thought created and user updated'}))
+            .then((thought) =>
+                User.findOneAndUpdate(
+                    { _id: req.body.userId },
+                    { $addToSet: { thoughts: thought._id } },
+                    { runValidators: true, new: true }
+                )
+            )
+            .then(() => res.json({ msg: "thought created and user updated" }))
             .catch((err) => res.json(err));
     },
     updateThought(req, res) {
         Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
             { $set: req.body },
-            {runValidators: true, new: true}
-        ).then((doc) =>
-            !doc
-                ? res.json({msg: 'no thought found!'})
-                : res.json(doc)
-        ).catch((err)=>res.json(err))
-    }
+            { runValidators: true, new: true }
+        )
+            .then((doc) =>
+                !doc ? res.json({ msg: "no thought found!" }) : res.json(doc)
+            )
+            .catch((err) => res.json(err));
+    },
+    deleteThought(req, res) {
+        Thought.findOneAndDelete({ _id: req.params.thoughtId })
+            .then((thought) =>
+                !thought
+                    ? res.json({ msg: "no thought found!" })
+                    : User.findOneAndUpdate(
+                          { thoughts: { $in: thought._id } },
+                          { $pull: { thoughts: thought._id } },
+                          { new: true }
+                      )
+            )
+            .then((user) =>
+                !user
+                    ? res.json({ msg: "No user has this thought" })
+                    : res.json({
+                          msg: "Thought deleted and related user updated",
+                      })
+            )
+            .catch((err) => res.json(err));
+    },
 };
