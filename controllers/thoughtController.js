@@ -29,4 +29,15 @@ module.exports = {
             .then(() => res.json({msg: 'thought created and user updated'}))
             .catch((err) => res.json(err));
     },
+    updateThought(req, res) {
+        Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $set: req.body },
+            {runValidators: true, new: true}
+        ).then((doc) =>
+            !doc
+                ? res.json({msg: 'no thought found!'})
+                : res.json(doc)
+        ).catch((err)=>res.json(err))
+    }
 };
