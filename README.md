@@ -44,4 +44,4 @@ If you have additional questions, please contact me lantaook@gmail.com.
 
 ## Walk through video
 
-[https://drive.google.com/file/d/1cDnT03wIvzIsOEMU8q57OgsiwbGrgReP/view](https://drive.google.com/file/d/1cDnT03wIvzIsOEMU8q57OgsiwbGrgReP/view)
+[https://watch.screencastify.com/v/1AZtUARSKQfnYNrsJP4o](https://watch.screencastify.com/v/1AZtUARSKQfnYNrsJP4o)
